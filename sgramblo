@@ -1,7 +1,7 @@
 #!/bin/bash
 # gêm sy'n sgramblo geiriau ac yn gofyn i chi eu dadsgramblo
 
-geiriau="geiriau.txt"
+geiriau="/usr/lib/geiriau.txt"
 
 sgramblogair()
 {
