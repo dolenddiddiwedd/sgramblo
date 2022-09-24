@@ -11,10 +11,12 @@ A rhowch y rhestr o eiriau i le call
 
 ```console
 mv geiriau.txt /usr/lib/geiriau.txt
+```
 
 Yna gallwch chwarae'r gêm drwy redeg y gorchymyn sgramblo
 
 ```console
 sgramblo
 ```
+
 ![image](sgramblo.png)
