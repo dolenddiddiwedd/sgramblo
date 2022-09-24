@@ -1,0 +1,56 @@
+#!/bin/bash
+# gêm sy'n sgramblo geiriau ac yn gofyn i chi eu dadsgramblo
+
+geiriau="geiriau.txt"
+
+sgramblogair()
+{
+gair="$(llinell_hap $geiriau)"
+hyd=${#gair}
+wedi_sgramblo=""; lastval=1
+
+for (( val=1; $val <= $hyd ; ))
+do
+if [ $((RANDOM % 2)) -eq 1 ] ; then
+wedi_sgramblo=$wedi_sgramblo$(echo $gair | cut -c$val)
+else
+wedi_sgramblo=$(echo $gair | cut -c$val)$wedi_sgramblo
+fi
+val=$(( $val + 1 ))
+done
+}
+
+newgame=""; dyfaliadau=0; cywir=0; cyfanswm=0
+
+until [ "$dyfaliad" = "gadael" ] ; do
+sgramblogair
+echo ""
+echo "Dadsgramblwch: $wedi_sgramblo"
+
+dyfaliad="??" ; dyfaliadau=0
+cyfanswm=$(( $cyfanswm +1 ))
+
+while [ "$dyfaliad" != "$gair" -a "$dyfaliad" != "gadael" -a "$dyfaliad" != "nesaf" ]
+do
+echo ""
+/bin/echo -n "Dyfalwch (neu rhowch 'gadael' neu 'nesaf') : "
+read dyfaliad
+
+if [ "$dyfaliad" = "$gair" ] ; then
+dyfaliadau=$(( $dyfaliadau + 1))
+echo ""
+echo "*** Roeddech chi'n gywir mewn ${dyfaliadau} o geisiau! Da iawn!! ***"
+echo ""
+cywir=$(( $cywir +1 ))
+elif [ "$dyfaliad" = "nesaf" -o "$dyfaliad" = "gadael" ] ; then
+echo "Y gair wedi'i ddadsgramblo oedd \"$gair\". Eich ceisiu: $dyfaliadau"
+else
+echo "Nid dyna'r gair. Ceisiwch eto."
+dyfaliadau=$(( $dyfaliadau +1 ))
+fi
+done
+done
+
+echo "Cawsoch chi $cywir yn gywir o gyfanswm o $cyfanswm o eiriau wedi'u sgramblo."
+
+exit 0
