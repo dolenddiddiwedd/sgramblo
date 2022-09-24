@@ -1,0 +1,26 @@
+#!/bin/bash
+# dewis llinell ar hap
+# wedi ei gymryd o'r llyfr 'bash Cookbook' (2017), O'Reilly Media, Inc.
+
+sgriptawk="/tmp/randomline.awk.$$"
+
+if [ $# -ne 1 ] ; then
+echo "Defnydd: llinellhap enw_ffeil" >&2
+exit 1
+elif [ ! -r "$1" ] ; then
+echo "Gwall: ffeil ar goll neu'n annarllenadwy" >&2
+exit 1 
+fi
+
+trap "$(which rm) -f $sgriptawk" 0
+
+cat << "EOF" > $sgriptawk
+BEGIN { srand() }
+{ s[NR] = $0 }
+END { print s[randint(NR)] }
+function randint(n) { return int (n * rand() ) + 1}
+EOF
+
+awk -f $sgriptawk < "$1"
+
+exit 0
