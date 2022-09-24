@@ -5,7 +5,7 @@ geiriau="geiriau.txt"
 
 sgramblogair()
 {
-gair="$(llinell_hap $geiriau)"
+gair="$(llinellhap $geiriau)"
 hyd=${#gair}
 wedi_sgramblo=""; lastval=1
 
